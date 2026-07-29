@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy — BeatSaber DiscordRichPresence</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Privacy Policy</h1>
+            <p class="subtitle">BeatSaber DiscordRichPresence</p>
+        </header>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="terms.html">Terms of Service</a>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="https://github.com/muxira/BeatSaberRichPresence" target="_blank">GitHub ↗</a>
+        </nav>
+        <main>
+            <section class="card">
+                <span class="effective-date">Effective Date: July 30, 2026</span>
+
+                <p>This Privacy Policy explains how the BeatSaber DiscordRichPresence mod ("the Mod") handles your data. We are committed to transparency — this Mod is open-source and you can verify everything described here by reviewing the source code.</p>
+
+                <h3>1. Data We Collect</h3>
+                <p><strong>We do not collect any personal data.</strong></p>
+                <p>The Mod does not transmit any information to external servers, APIs, or third parties operated by the Mod's author. All data processing happens <strong>entirely on your local machine</strong>.</p>
+
+                <h3>2. Data Shared with Discord</h3>
+                <p>The Mod sends the following gameplay information to the <strong>Discord desktop client running on your computer</strong> via the local Discord IPC (Inter-Process Communication) socket:</p>
+                <ul>
+                    <li><strong>Menu state</strong> — whether you are in the main menu, settings, or level selection</li>
+                    <li><strong>Song information</strong> — song name, author name, and difficulty during gameplay</li>
+                    <li><strong>Gameplay stats</strong> — current energy percentage and combo count</li>
+                    <li><strong>Track timing</strong> — song start time and duration (for the Discord progress bar)</li>
+                    <li><strong>Match results</strong> — rank, max combo, notes cut count, and score after completing a level</li>
+                </ul>
+                <p>This information is displayed in your Discord profile as a Rich Presence status and is visible to other Discord users according to <strong>your Discord privacy settings</strong>.</p>
+
+                <h3>3. Data We Do NOT Collect</h3>
+                <ul>
+                    <li>No personally identifiable information (name, email, IP address)</li>
+                    <li>No Discord account information (username, ID, tokens)</li>
+                    <li>No analytics, telemetry, or usage tracking</li>
+                    <li>No crash reports or error logs sent to external servers</li>
+                    <li>No cookies, local storage, or persistent tracking mechanisms</li>
+                </ul>
+
+                <h3>4. Third-Party Services</h3>
+                <p>The Mod interacts with the following third-party software:</p>
+                <ul>
+                    <li><strong>Discord</strong> — Rich Presence data is sent to the local Discord client. How Discord uses and displays this data is governed by <a href="https://discord.com/privacy" target="_blank">Discord's Privacy Policy</a>.</li>
+                    <li><strong>DiscordCore</strong> — an intermediary library that manages the connection between Beat Saber mods and the Discord client. DiscordCore operates locally and does not transmit data externally.</li>
+                </ul>
+                <p>The Mod's author is not responsible for how Discord Inc. handles the Rich Presence data once it is received by the Discord client.</p>
+
+                <h3>5. Data Storage</h3>
+                <p>The Mod does not store any data to disk. All gameplay information exists only in memory while the game is running and is discarded when the game is closed.</p>
+
+                <h3>6. Children's Privacy</h3>
+                <p>The Mod does not knowingly collect any information from children under 13 years of age. The Mod does not collect information from anyone — it only reads local game state and forwards it to the local Discord client.</p>
+
+                <h3>7. Open Source Transparency</h3>
+                <p>This Mod is fully open-source. You can review the complete source code at any time to verify that it operates exactly as described in this policy:</p>
+                <p><a href="https://github.com/muxira/BeatSaberRichPresence" target="_blank">github.com/muxira/BeatSaberRichPresence</a></p>
+
+                <h3>8. Changes to This Policy</h3>
+                <p>This Privacy Policy may be updated from time to time. Any changes will be reflected on this page with an updated effective date. Since the Mod does not collect data, changes will likely be limited to clarifications.</p>
+
+                <h3>9. Contact</h3>
+                <p>If you have any questions about this Privacy Policy, please open an issue on the <a href="https://github.com/muxira/BeatSaberRichPresence" target="_blank">GitHub repository</a>.</p>
+            </section>
+        </main>
+        <footer>
+            <p>&copy; 2025 muxira. This project is open-source under the MIT License.</p>
+        </footer>
+    </div>
+</body>
+</html>

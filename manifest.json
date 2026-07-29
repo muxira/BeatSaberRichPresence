@@ -1,0 +1,13 @@
+{
+  "id": "DiscordRichPresence",
+  "name": "DiscordRichPresence",
+  "author": "Antigravity",
+  "version": "1.0.0",
+  "description": "Discord Rich Presence for Beat Saber using DiscordCore.",
+  "gameVersion": "1.29.1",
+  "dependsOn": {
+    "BSIPA": "^4.2.2",
+    "SiraUtil": "^3.1.2",
+    "DiscordCore": "^1.0.0"
+  }
+}
