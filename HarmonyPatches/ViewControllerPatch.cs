@@ -1,4 +1,4 @@
-﻿using HarmonyLib;
+using HarmonyLib;
 using HMUI;
 using Zenject;
 using DiscordRichPresence.Services;
@@ -30,6 +30,7 @@ namespace DiscordRichPresence.HarmonyPatches
             {
                 activity.Details = "В главном меню";
                 activity.State = "";
+                activity.Timestamps = default;
                 activity.Assets.LargeImage = "default_icon";
                 updated = true;
             }
@@ -37,14 +38,14 @@ namespace DiscordRichPresence.HarmonyPatches
             {
                 activity.Details = "В настройках";
                 activity.State = "";
+                activity.Timestamps = default;
                 updated = true;
             }
-            else if (vcName == "SelectLevelCategoryViewController" || vcName == "LevelSelectionNavigationController")
+            else if (vcName.Contains("LevelCollection") || vcName.Contains("LevelSelection") || vcName.Contains("LevelDetail"))
             {
                 activity.Details = "Выбирает трек";
-                // We could read selectedLevelCategory here if we had direct access, 
-                // but setting a generic state is safer against obfuscation/changes.
                 activity.State = "Выбор уровня";
+                activity.Timestamps = default;
                 updated = true;
             }
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 using Zenject;
 using Discord;
@@ -13,8 +13,13 @@ namespace DiscordRichPresence.Services
         private readonly IComboController _comboController;
         private readonly GameplayCoreSceneSetupData _sceneSetupData;
 
+        [InjectOptional] private readonly ILevelEndActions _levelEndActions;
+
         private int _currentCombo = 0;
         private float _currentEnergy = 1f;
+        private long _startTimestamp = 0;
+        private long _endTimestamp = 0;
+        private bool _isFailed = false;
 
         public GameplayPresenceService(
             DiscordPresenceManager presenceManager,
@@ -35,9 +40,16 @@ namespace DiscordRichPresence.Services
             // Hook events
             _gameEnergyCounter.gameEnergyDidChangeEvent += OnEnergyChanged;
             _comboController.comboDidChangeEvent += OnComboChanged;
+            
+            if (_levelEndActions != null)
+                _levelEndActions.levelFailedEvent += OnLevelFailed;
 
             _currentEnergy = _gameEnergyCounter.energy;
             _currentCombo = 0;
+            _isFailed = false;
+
+            _startTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds() - (long)_audioTimeSyncController.songTime;
+            _endTimestamp = _startTimestamp + (long)_audioTimeSyncController.songLength;
 
             UpdateGameplayActivity(immediate: true);
         }
@@ -49,6 +61,9 @@ namespace DiscordRichPresence.Services
                 
             if (_comboController != null)
                 _comboController.comboDidChangeEvent -= OnComboChanged;
+                
+            if (_levelEndActions != null)
+                _levelEndActions.levelFailedEvent -= OnLevelFailed;
         }
 
         public void Tick()
@@ -58,23 +73,41 @@ namespace DiscordRichPresence.Services
         private void OnEnergyChanged(float energy)
         {
             _currentEnergy = energy;
-            UpdateGameplayActivity();
+            if (!_isFailed) UpdateGameplayActivity();
         }
 
         private void OnComboChanged(int combo)
         {
             _currentCombo = combo;
-            UpdateGameplayActivity();
+            if (!_isFailed) UpdateGameplayActivity();
+        }
+
+        private void OnLevelFailed()
+        {
+            _isFailed = true;
+            var level = _sceneSetupData.beatmapLevel;
+            var difficulty = _sceneSetupData.beatmapKey.difficulty.ToString();
+            
+            var activity = new Activity
+            {
+                Details = $"Провал: {level.songName} - {level.songAuthorName}",
+                State = $"Комбо: {_currentCombo}x",
+                Assets = new ActivityAssets
+                {
+                    LargeImage = "default_icon", 
+                    LargeText = difficulty
+                }
+            };
+            
+            _presenceManager.SetActivity(activity, immediate: true);
         }
 
         private void UpdateGameplayActivity(bool immediate = false)
         {
+            if (_isFailed) return;
+            
             var level = _sceneSetupData.beatmapLevel;
             var difficulty = _sceneSetupData.beatmapKey.difficulty.ToString();
-            
-            // Format time for Discord native progress bar
-            long startTimestamp = DateTimeOffset.UtcNow.ToUnixTimeSeconds() - (long)_audioTimeSyncController.songTime;
-            long endTimestamp = startTimestamp + (long)_audioTimeSyncController.songLength;
 
             int energyPercent = Mathf.RoundToInt(_currentEnergy * 100);
 
@@ -84,8 +117,8 @@ namespace DiscordRichPresence.Services
                 State = $"⚡ {energyPercent}% | Комбо: {_currentCombo}x",
                 Timestamps = new ActivityTimestamps
                 {
-                    Start = startTimestamp,
-                    End = endTimestamp
+                    Start = _startTimestamp,
+                    End = _endTimestamp
                 },
                 Assets = new ActivityAssets
                 {
