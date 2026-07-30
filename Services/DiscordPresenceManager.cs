@@ -10,7 +10,7 @@ namespace DiscordRichPresence.Services
     {
         // Replace with actual Discord app ID
         // Note: The user must create an app on Discord Developer Portal and provide this ID.
-        public const long AppId = 1234567890123456789; // TODO: Replace with real AppID
+        public const long AppId = REDACTED_APP_ID; // TODO: Replace with real AppID
 
         private DiscordInstance _discordInstance;
         private Activity _currentActivity;
