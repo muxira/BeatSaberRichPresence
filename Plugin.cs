@@ -17,9 +17,10 @@ namespace DiscordRichPresence
         private Harmony _harmony = null!;
 
         [Init]
-        public void Init(IPALogger logger, Zenjector zenjector)
+        public void Init(IPALogger logger, Zenjector zenjector, IPA.Config.Config config)
         {
             Log = logger;
+            PluginConfig.Instance = config.Generated<PluginConfig>();
             _harmony = new Harmony(HarmonyId);
             
             // Set up our Zenject installers

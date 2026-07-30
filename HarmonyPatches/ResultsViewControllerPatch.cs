@@ -1,4 +1,4 @@
-﻿using HarmonyLib;
+using HarmonyLib;
 using Zenject;
 using DiscordRichPresence.Services;
 
@@ -23,12 +23,14 @@ namespace DiscordRichPresence.HarmonyPatches
 
             var activity = new Discord.Activity
             {
-                Details = $"Результат: {rankStr}",
-                State = $"Комбо: {levelCompletionResults.maxCombo}x | Кубов: {levelCompletionResults.goodCutsCount}/{totalNotes} | Очки: {levelCompletionResults.modifiedScore}",
+                Details = $"Пройдено: {beatmapLevel.songName} - {beatmapLevel.songAuthorName}",
+                State = $"Ранг: {rankStr} | Очки: {levelCompletionResults.modifiedScore} | Комбо: {levelCompletionResults.maxCombo}x",
                 Assets = new Discord.ActivityAssets
                 {
                     LargeImage = "default_icon",
-                    LargeText = beatmapLevel.songName
+                    LargeText = $"{beatmapLevel.songName} [{beatmapKey.difficulty}]",
+                    SmallImage = "passed",
+                    SmallText = "Пройдено"
                 }
             };
 

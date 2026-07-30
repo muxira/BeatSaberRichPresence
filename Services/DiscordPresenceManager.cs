@@ -8,10 +8,6 @@ namespace DiscordRichPresence.Services
 {
     public class DiscordPresenceManager : IInitializable, IDisposable, ITickable
     {
-        // Replace with actual Discord app ID
-        // Note: The user must create an app on Discord Developer Portal and provide this ID.
-        public const long AppId = REDACTED_APP_ID; // TODO: Replace with real AppID
-
         private DiscordInstance _discordInstance;
         private Activity _currentActivity;
         
@@ -29,7 +25,7 @@ namespace DiscordRichPresence.Services
             _discordInstance = DiscordManager.instance.CreateInstance(
                 new DiscordSettings 
                 { 
-                    appId = AppId,
+                    appId = PluginConfig.Instance.AppId,
                     handleInvites = false,
                     modId = "DiscordRichPresence",
                     modName = "DiscordRichPresence"
