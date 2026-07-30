@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using Zenject;
 using Discord; // From DiscordCore
+using DiscordCore; // Added to fix DiscordInstance
 
 namespace DiscordRichPresence.Services
 {
